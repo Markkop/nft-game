@@ -1,46 +1,18 @@
-# Advanced Sample Hardhat Project
+# ⚔️ NFT Battle
 
-This project demonstrates an advanced Hardhat use case, integrating other tools commonly used alongside Hardhat in the ecosystem.
+This is a project based on Buildspace's [Create your own mini turn-based NFT browser game](https://app.buildspace.so/projects/CO5cc2751b-e878-41c4-99fa-a614dc910ee9) tutorial.
 
-The project comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts. It also comes with a variety of other tools, preconfigured to work with the project code.
+# Develop
 
-Try running some of the following tasks:
+## 🔎 Etherscan verification
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-npx hardhat help
-REPORT_GAS=true npx hardhat test
-npx hardhat coverage
-npx hardhat run scripts/deploy.ts
-TS_NODE_FILES=true npx ts-node scripts/deploy.ts
-npx eslint '**/*.{js,ts}'
-npx eslint '**/*.{js,ts}' --fix
-npx prettier '**/*.{json,sol,md}' --check
-npx prettier '**/*.{json,sol,md}' --write
-npx solhint 'contracts/**/*.sol'
-npx solhint 'contracts/**/*.sol' --fix
-```
+Deploy the contract with `npm run deploy:rinkeby` and copy the deployed contract address.  
+Run `npm run verify -- CONTRACT_ADDRESS`, but change `CONTRACT_ADDRESS` with the contract address you've copied.
 
-# Etherscan verification
+## ⚙️ Enable custom TSCONFIG for Hardhat
 
-To try out Etherscan verification, you first need to deploy a contract to an Ethereum network that's supported by Etherscan, such as Ropsten.
-
-In this project, copy the .env.example file to a file named .env, and then edit it to fill in the details. Enter your Etherscan API key, your Ropsten node URL (eg from Alchemy), and the private key of the account which will send the deployment transaction. With a valid .env file in place, first deploy your contract:
-
-```shell
-hardhat run --network ropsten scripts/deploy.ts
-```
-
-Then, copy the deployment address and paste it in to replace `DEPLOYED_CONTRACT_ADDRESS` in this command:
-
-```shell
-npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
-```
-
-# Performance optimizations
-
-For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+This project is using `react-scripts` bundle and it requires `"module": "esnext"` typescript configuration.  
+Hardhat in the other hand must use `"module": "commonjs"` to work.  
+To avoid having to eject this React project and customizing its babel settings, I'm using two `tsconfig.json` files.  
+Run `. scripts/exportTsConfigEnv.sh` or `export HARDHAT_TSCONFIG='tsconfig.hardhat.json'` in your terminal before running hardhat.  
+You must do this for each new/restarted terminal you're going to use.  
