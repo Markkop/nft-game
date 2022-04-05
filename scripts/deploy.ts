@@ -4,7 +4,7 @@ const constructorArgs = require("./constructorArgs.ts");
 const main = async () => {
   const gameContractFactory = await hre.ethers.getContractFactory("MyEpicGame");
   const gameContract = await gameContractFactory.deploy.apply(
-    null,
+    gameContractFactory,
     constructorArgs
   );
   await gameContract.deployed();
@@ -15,19 +15,16 @@ const main = async () => {
   await txn.wait();
   console.log("Minted NFT #1");
 
-  txn = await gameContract.mintCharacterNFT(1);
+  txn = await gameContract.attackBoss();
   await txn.wait();
-  console.log("Minted NFT #2");
 
-  txn = await gameContract.mintCharacterNFT(2);
+  txn = await gameContract.attackBoss();
   await txn.wait();
-  console.log("Minted NFT #3");
 
-  txn = await gameContract.mintCharacterNFT(1);
+  txn = await gameContract.attackBoss();
   await txn.wait();
-  console.log("Minted NFT #4");
 
-  console.log("Done deploying and minting!");
+  console.log("Done deploying, minting and attacking!");
 
   // Get the value of the NFT's URI.
   const returnedTokenUri = await gameContract.tokenURI(1);
