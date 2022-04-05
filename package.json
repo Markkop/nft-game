@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "typechain": "hardhat typechain",
-    "deploy": "hardhat run scripts/deploy.ts"
+    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
+    "verify": "hardhat verify --constructor-args scripts/constructorArgs.ts --network rinkeby"
   },
   "keywords": [],
   "author": "",
