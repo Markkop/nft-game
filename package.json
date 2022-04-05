@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "typechain": "hardhat typechain",
     "deploy": "hardhat run scripts/deploy.ts",
     "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
-    "verify": "hardhat verify --constructor-args scripts/constructorArgs.ts --network rinkeby"
+    "verify": "hardhat verify --constructor-args scripts/constructorArgs.ts --network rinkeby",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "keywords": [],
   "author": "",
@@ -34,7 +37,6 @@
     "eslint-plugin-prettier": "^3.4.1",
     "eslint-plugin-promise": "^5.2.0",
     "ethereum-waffle": "^3.4.4",
-    "ethers": "^5.6.2",
     "hardhat": "^2.9.2",
     "hardhat-gas-reporter": "^1.0.8",
     "prettier": "^2.6.1",
@@ -46,6 +48,35 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
-    "@openzeppelin/contracts": "^4.5.0"
+    "@openzeppelin/contracts": "^4.5.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/jest": "^27.4.1",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
+    "ethers": "^5.6.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.1.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

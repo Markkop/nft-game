@@ -16,9 +16,16 @@ module.exports = {
     ecmaVersion: 12,
   },
   rules: {
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
     "node/no-unsupported-features/es-syntax": [
       "error",
       { ignores: ["modules"] },
     ],
+  },
+  settings: {
+    node: {
+      tryExtensions: [".js", ".json", ".node", ".ts", ".d.ts", ".tsx"],
+    },
   },
 };
