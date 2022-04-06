@@ -12,9 +12,6 @@ module.exports = {
     "plugin:node/recommended",
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: 12,
-  },
   rules: {
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
@@ -22,6 +19,7 @@ module.exports = {
       "error",
       { ignores: ["modules"] },
     ],
+    "node/no-unpublished-import": "off",
   },
   settings: {
     node: {

@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
     "typechain": "hardhat typechain",
     "deploy": "hardhat run scripts/deploy.ts",
     "deploy:rinkeby": "hardhat run scripts/deploy.ts --network rinkeby",
     "verify": "hardhat verify --constructor-args scripts/constructorArgs.ts --network rinkeby",
-    "start": "react-scripts start",
+    "start": "cp -r artifacts/contracts src && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

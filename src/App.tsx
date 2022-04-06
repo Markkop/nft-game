@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import twitterLogo from "./assets/twitter-logo.svg";
 import SelectCharacter from "./Components/SelectCharacter";
+import myEpicGame from "./contracts/MyEpicGame.sol/MyEpicGame.json";
+import { ethers } from "ethers";
+import { transformCharacterData } from "./utils/transformCharacterData";
+import Arena from "./Components/Arena";
 
-// Constants
 const TWITTER_HANDLE = "_buildspace";
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
-const App = () => {
+const App = ({ CONTRACT_ADDRESS }) => {
   // State
   const [currentAccount, setCurrentAccount] = useState(null);
   const [characterNFT, setCharacterNFT] = useState(null);
@@ -53,6 +56,42 @@ const App = () => {
     checkIfWalletIsConnected();
   }, []);
 
+  /*
+   * Add this useEffect right under the other useEffect where you are calling checkIfWalletIsConnected
+   */
+  useEffect(() => {
+    /*
+     * The function we will call that interacts with out smart contract
+     */
+    const fetchNFTMetadata = async () => {
+      console.log("Checking for Character NFT on address:", currentAccount);
+
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const gameContract = new ethers.Contract(
+        CONTRACT_ADDRESS,
+        myEpicGame.abi,
+        signer
+      );
+
+      const txn = await gameContract.checkIfUserHasNFT();
+      if (txn.name) {
+        console.log("User has character NFT");
+        setCharacterNFT(transformCharacterData(txn));
+      } else {
+        console.log("No character NFT found");
+      }
+    };
+
+    /*
+     * We only want to run this, if we have a connected wallet
+     */
+    if (currentAccount) {
+      console.log("CurrentAccount:", currentAccount);
+      fetchNFTMetadata();
+    }
+  }, [currentAccount]);
+
   const renderContent = () => {
     /*
      * Scenario #1
@@ -76,7 +115,20 @@ const App = () => {
        * Scenario #2
        */
     } else if (currentAccount && !characterNFT) {
-      return <SelectCharacter setCharacterNFT={setCharacterNFT} />;
+      return (
+        <SelectCharacter
+          setCharacterNFT={setCharacterNFT}
+          CONTRACT_ADDRESS={CONTRACT_ADDRESS}
+        />
+      );
+    } else if (currentAccount && characterNFT) {
+      return (
+        <Arena
+          characterNFT={characterNFT}
+          setCharacterNFT={setCharacterNFT}
+          CONTRACT_ADDRESS={CONTRACT_ADDRESS}
+        />
+      );
     }
   };
 
